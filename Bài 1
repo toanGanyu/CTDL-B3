@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+
+class MayTinhRPN
+{
+    public static double TinhRPN(string bieuThuc)
+    {
+        Stack<double> nganXep = new Stack<double>();
+        string[] tokens = bieuThuc.Split(' ');
+
+        foreach (string token in tokens)
+        {
+            if (double.TryParse(token, out double so))
+            {
+                nganXep.Push(so); 
+            }
+            else
+            {
+                double b = nganXep.Pop();
+                double a = nganXep.Pop();
+
+                switch (token)
+                {
+                    case "+": nganXep.Push(a + b); break;
+                    case "-": nganXep.Push(a - b); break;
+                    case "*": nganXep.Push(a * b); break;
+                    case "/": nganXep.Push(a / b); break;
+                }
+            }
+        }
+
+        return nganXep.Pop();
+    }
+
+    static void Main()
+    {
+        string bieuThuc = "3 4 + 5 *";
+        double ketQua = TinhRPN(bieuThuc);
+        Console.WriteLine($"Ket qua: {ketQua}");
+    }
+}
