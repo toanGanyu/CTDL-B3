@@ -17,11 +17,9 @@ class KiemTraHtml
         }
 
         string noiDungHtml = File.ReadAllText(duongDanFile);
-
-        // Kiem tra tinh hop le cua the HTML
         bool hopLe = KiemTraTheHtml(noiDungHtml);
 
-        Console.WriteLine(hopLe ? "✅ File HTML hop le." : "❌ File HTML khong hop le.");
+        Console.WriteLine(hopLe ? "File HTML hop le." : "File HTML khong hop le.");
     }
 
     static bool KiemTraTheHtml(string html)
@@ -40,13 +38,13 @@ class KiemTraHtml
                 string the = html.Substring(i + 1, j - i - 1);
                 if (!the.StartsWith("/"))
                 {
-                    hangDoi.Enqueue(the); // Them the mo vao hang doi
+                    hangDoi.Enqueue(the);
                 }
                 else
                 {
                     if (hangDoi.Count == 0 || hangDoi.Dequeue() != the.Substring(1))
                     {
-                        return false; // Loi neu khong khop
+                        return false; 
                     }
                 }
                 i = j; // Cap nhat vi tri i
@@ -54,6 +52,6 @@ class KiemTraHtml
             i++;
         }
 
-        return hangDoi.Count == 0; // Hang doi phai rong neu HTML hop le
+        return hangDoi.Count == 0;
     }
 }
